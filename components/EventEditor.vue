@@ -8,19 +8,33 @@
           required
           counter
           maxlength="25"
+          :value="title"
+          @change="(value) => {
+            title = value
+          }"
         />
         <!-- 詳細入力 -->
         <v-textarea
           label="Description"
           counter
           maxlength="200"
+          :value="description"
+          @change="(value) => {
+            description = value
+          }"
         />
       </v-col>
       <v-col>
         <v-row>
           <v-col>
             <!-- 時刻選択 -->
-            <v-time-picker format="24hr" />
+            <v-time-picker
+              format="24hr"
+              :value="time"
+              @change="(value) => {
+                time = value
+              }"
+            />
           </v-col>
           <v-col>
             <!-- 日付選択 -->
@@ -38,30 +52,24 @@
           class="overflow-y-auto"
           max-height="75vh"
         >
-          <v-list-item align="start">
-            <v-list-item-content>
-              <v-list-item-title>
-                2021/01/01
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                19:00 ~ 21:00
-              </v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-action>
-              <v-icon color="accent">
-                mdi-delete
-              </v-icon>
-            </v-list-item-action>
-          </v-list-item>
+          <date-list-item :date="now" />
         </v-list>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-export default {
+import { DateTime } from 'luxon'
 
+export default {
+  data () {
+    return {
+      now: DateTime.now(),
+      title: '',
+      description: '',
+      time: '19:00'
+    }
+  }
 }
 </script>
 
